@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import Sequence, Dict, Type
 
 
@@ -11,13 +11,14 @@ class InfoMessage:
     distance: float
     speed: float
     calories: float
+    message: str = ('Тип тренировки: {training_type}; '
+                    'Длительность: {duration:.3f} ч.; '
+                    'Дистанция: {distance:.3f} км; '
+                    'Ср. скорость: {speed:.3f} км/ч; '
+                    'Потрачено ккал: {calories:.3f}.')
 
     def get_message(self) -> str:
-        return (f'Тип тренировки: {self.training_type}; '
-                f'Длительность: {self.duration:.3f} ч.; '
-                f'Дистанция: {self.distance:.3f} км; '
-                f'Ср. скорость: {self.speed:.3f} км/ч; '
-                f'Потрачено ккал: {self.calories:.3f}. ')
+        return self.message.format(**asdict(self))
 
 
 class Training:
@@ -95,7 +96,12 @@ class Swimming(Training):
     COEFF_2: float = 2
     LEN_STEP: float = 1.38
 
-    def __init__(self, action, duration, weight, length_pool, count_pool) -> None:
+    def __init__(self,
+                 action,
+                 duration,
+                 weight,
+                 length_pool,
+                 count_pool) -> None:
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
