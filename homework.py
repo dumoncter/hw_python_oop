@@ -105,8 +105,11 @@ class Swimming(Training):
     LEN_STEP: float = 1.38
 
     # Тут проблемы с колличеством символом строки превышает 79 символов.
-    # Прогнал через онлайн генератор PEP8 выдал так.
-    def __init__(self, action, duration, weight, length_pool, count_pool) -> None:
+    # Генератор не справился, в функции 82 символа, тут особо ничего не поменешь
+    # Подсмотрел в PEP8 вот так:
+    def __init__(
+            self, action, duration,
+            weight, length_pool, count_pool) -> None:
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
