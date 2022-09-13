@@ -12,11 +12,11 @@ class InfoMessage:
     speed: float
     calories: float
     message: str = (
-        'Тип тренировки: {training_type}; '
-        'Длительность: {duration:.3f} ч.; '
-        'Дистанция: {distance:.3f} км; '
-        'Ср. скорость: {speed:.3f} км/ч; '
-        'Потрачено ккал: {calories:.3f}.'
+        "Тип тренировки: {training_type}; "
+        "Длительность: {duration:.3f} ч.; "
+        "Дистанция: {distance:.3f} км; "
+        "Ср. скорость: {speed:.3f} км/ч; "
+        "Потрачено ккал: {calories:.3f}."
     )
 
     def get_message(self) -> str:
@@ -54,7 +54,7 @@ class Training:
             duration=self.duration,
             distance=self.get_distance(),
             speed=self.get_mean_speed(),
-            calories=self.get_spent_calories()
+            calories=self.get_spent_calories(),
         )
 
 
@@ -65,7 +65,11 @@ class Running(Training):
     COEFF_2: float = 20
 
     def get_spent_calories(self) -> float:
-        speed_and_coeff = (self.COEFF_1 * self.get_mean_speed() - self.COEFF_2) * self.weight
+        # Тут проблемы с колличеством символом строки превышает 79 символов.
+        # Прогнал через онлайн генератор PEP8 выдал так.
+        speed_and_coeff = (
+            self.COEFF_1 * self.get_mean_speed() - self.COEFF_2
+        ) * self.weight
         dur_in_minutes = self.duration * self.MIN_IN_HOUR
 
         return speed_and_coeff / self.M_IN_KM * dur_in_minutes
@@ -73,6 +77,7 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
+
     COEFF_1: float = 0.035
     COEFF_2: float = 0.029
 
@@ -83,10 +88,13 @@ class SportsWalking(Training):
     def get_spent_calories(self) -> float:
         weight_and_coeff_1 = self.COEFF_1 * self.weight
         weight_and_coeff_2 = self.COEFF_2 * self.weight
-        speed_and_weight = ((self.get_mean_speed() ** 2) // self.height)
+        speed_and_weight = (self.get_mean_speed() ** 2) // self.height
         duration_in_minutes = self.duration * self.MIN_IN_HOUR
-
-        return (weight_and_coeff_1 + speed_and_weight * weight_and_coeff_2) * duration_in_minutes
+        # Тут проблемы с колличеством символом строки превышает 79 символов.
+        # Прогнал через онлайн генератор PEP8 выдал так.
+        return (
+            weight_and_coeff_1 + speed_and_weight * weight_and_coeff_2
+        ) * duration_in_minutes
 
 
 class Swimming(Training):
@@ -96,6 +104,8 @@ class Swimming(Training):
     COEFF_2: float = 2
     LEN_STEP: float = 1.38
 
+    # Тут проблемы с колличеством символом строки превышает 79 символов.
+    # Прогнал через онлайн генератор PEP8 выдал так.
     def __init__(self, action, duration, weight, length_pool, count_pool) -> None:
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
@@ -122,9 +132,9 @@ def read_package(workout_types: str, data_attr: Sequence[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
 
     training_name: Dict[str, Type[Training]] = {
-        'SWM': Swimming,
-        'RUN': Running,
-        'WLK': SportsWalking
+        "SWM": Swimming,
+        "RUN": Running,
+        "WLK": SportsWalking,
     }
     if workout_types not in training_name:
         raise NotImplementedError
@@ -139,11 +149,11 @@ def main(main_info) -> None:
     print(info.get_message())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     packages = [
-        ('SWM', [720, 1, 80, 25, 40]),
-        ('RUN', [15000, 1, 75]),
-        ('WLK', [9000, 1, 75, 180]),
+        ("SWM", [720, 1, 80, 25, 40]),
+        ("RUN", [15000, 1, 75]),
+        ("WLK", [9000, 1, 75, 180]),
     ]
 
     for workout_type, data in packages:
