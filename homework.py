@@ -68,8 +68,8 @@ class Running(Training):
         # Тут проблемы с колличеством символом строки превышает 79 символов.
         # Прогнал через онлайн генератор PEP8 выдал так.
         speed_and_coeff = (
-            self.COEFF_1 * self.get_mean_speed() - self.COEFF_2
-        ) * self.weight
+                                  self.COEFF_1 * self.get_mean_speed() - self.COEFF_2
+                          ) * self.weight
         dur_in_minutes = self.duration * self.MIN_IN_HOUR
 
         return speed_and_coeff / self.M_IN_KM * dur_in_minutes
@@ -93,8 +93,8 @@ class SportsWalking(Training):
         # Тут проблемы с колличеством символом строки превышает 79 символов.
         # Прогнал через онлайн генератор PEP8 выдал так.
         return (
-            weight_and_coeff_1 + speed_and_weight * weight_and_coeff_2
-        ) * duration_in_minutes
+                       weight_and_coeff_1 + speed_and_weight * weight_and_coeff_2
+               ) * duration_in_minutes
 
 
 class Swimming(Training):
@@ -104,12 +104,14 @@ class Swimming(Training):
     COEFF_2: float = 2
     LEN_STEP: float = 1.38
 
-    # Тут проблемы с колличеством символом строки превышает 79 символов.
-    # Генератор не справился)) в функции 82 символа
-    # Подсмотрел в PEP8 вот так:
     def __init__(
-            self, action, duration,
-            weight, length_pool, count_pool) -> None:
+            self,
+            action,
+            duration,
+            weight,
+            length_pool,
+            count_pool
+    ) -> None:
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
@@ -140,7 +142,7 @@ def read_package(workout_types: str, data_attr: Sequence[int]) -> Training:
         "WLK": SportsWalking,
     }
     if workout_types not in training_name:
-        raise NotImplementedError
+        raise ValueError
 
     return training_name[workout_types](*data_attr)
 
