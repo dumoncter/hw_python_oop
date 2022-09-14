@@ -65,11 +65,9 @@ class Running(Training):
     COEFF_2: float = 20
 
     def get_spent_calories(self) -> float:
-        # Тут проблемы с колличеством символом строки превышает 79 символов.
-        # Прогнал через онлайн генератор PEP8 выдал так.
         speed_and_coeff = (
-                                  self.COEFF_1 * self.get_mean_speed() - self.COEFF_2
-                          ) * self.weight
+            self.COEFF_1 * self.get_mean_speed() - self.COEFF_2
+        ) * self.weight
         dur_in_minutes = self.duration * self.MIN_IN_HOUR
 
         return speed_and_coeff / self.M_IN_KM * dur_in_minutes
@@ -93,8 +91,8 @@ class SportsWalking(Training):
         # Тут проблемы с колличеством символом строки превышает 79 символов.
         # Прогнал через онлайн генератор PEP8 выдал так.
         return (
-                       weight_and_coeff_1 + speed_and_weight * weight_and_coeff_2
-               ) * duration_in_minutes
+            weight_and_coeff_1 + speed_and_weight * weight_and_coeff_2
+        ) * duration_in_minutes
 
 
 class Swimming(Training):
