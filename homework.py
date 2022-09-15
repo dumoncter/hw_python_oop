@@ -20,6 +20,7 @@ class InfoMessage:
     )
 
     def get_message(self) -> str:
+        """Возвращаем расчетное сообщение о тренировках """
         return self.message.format(**asdict(self))
 
 
@@ -103,12 +104,7 @@ class Swimming(Training):
     LEN_STEP: float = 1.38
 
     def __init__(
-            self,
-            action,
-            duration,
-            weight,
-            length_pool,
-            count_pool
+            self, action, duration, weight, length_pool, count_pool
     ) -> None:
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
@@ -133,14 +129,13 @@ class Swimming(Training):
 
 def read_package(workout_types: str, data_attr: Sequence[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
-
     training_name: Dict[str, Type[Training]] = {
         "SWM": Swimming,
         "RUN": Running,
         "WLK": SportsWalking,
     }
     if workout_types not in training_name:
-        raise ValueError
+        raise ValueError('Ошибка. Проверьте тип тренировки')
 
     return training_name[workout_types](*data_attr)
 
