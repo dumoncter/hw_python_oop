@@ -135,7 +135,7 @@ def read_package(workout_types: str, data_attr: Sequence[int]) -> Training:
         "WLK": SportsWalking,
     }
     if workout_types not in training_name:
-        raise ValueError('Ошибка. Проверьте тип тренировки')
+        raise ValueError(f'Ошибка. Тренеровка {workout_types} не найдена. Проверьте тип тренировки ')
 
     return training_name[workout_types](*data_attr)
 
